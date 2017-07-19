@@ -1,5 +1,3 @@
-print "Hello, World!"
-
 # uArm Swift Pro - Python Library
 # Created by: Richard Garsthagen - the.anykey@gmail.com
 # V0.2 - June 2017 - Still under development
@@ -56,61 +54,61 @@ class robot:
 def disconnect(self):
     if self.connected:
         if (self.debug): print ("Closing serial connection")
-        self.connected = False
-        self.ser.close()
-    else:
-        if (self.debug): print ("Disconnected called while not connected")
-            
-def sendcmd(self, cmnd, waitresponse):
-    if (self.connected):
-        id = self.serid
-        self.serid += 1
+            self.connected = False
+            self.ser.close()
+        else:
+            if (self.debug): print ("Disconnected called while not connected")
+                
+                def sendcmd(self, cmnd, waitresponse):
+                    if (self.connected):
+id = self.serid
+    self.serid += 1
         cmnd = "#{} {}".format(id,cmnd)
-        cmndString = bytes(cmnd + "\n")
-        if (self.debug): print ("Serial send: {}".format(cmndString))
-        self.ser.write(cmndString)
-        if (waitresponse):
-            line = self.ser.readline()
-            while not line.startswith("$" + str(id)):
+            cmndString = bytes(cmnd + "\n")
+            if (self.debug): print ("Serial send: {}".format(cmndString))
+            self.ser.write(cmndString)
+            if (waitresponse):
                 line = self.ser.readline()
-            if (self.debug): print ("Response {}".format(line))
-            if (self.moving):
-                self.moving = False
-                time.sleep(self.delay_after_move)
-            return line
+                while not line.startswith("$" + str(id)):
+                    line = self.ser.readline()
+                if (self.debug): print ("Response {}".format(line))
+                if (self.moving):
+                    self.moving = False
+                    time.sleep(self.delay_after_move)
+                return line
     else:
         if (self.debug):
             print ("error, trying to send command while not connected")
-            self.moving = False
+                self.moving = False
 
 def goto(self,x,y,z,speed):
     self.moving = True
-    x = str(round(x, 2))
-    y = str(round(y, 2))
-    z = str(round(z, 2))
-    s = str(round(speed, 2))
-    cmd = protocol.SET_POSITION.format(x,y,z,s)
-    self.sendcmd(cmd, True)
-    
-def async_goto(self,x,y,z, speed):
-    self.moving = True
-    t = threading.Thread( target=self.goto , args=(x,y,z,speed) )
-    t.start()
+        x = str(round(x, 2))
+        y = str(round(y, 2))
+        z = str(round(z, 2))
+        s = str(round(speed, 2))
+        cmd = protocol.SET_POSITION.format(x,y,z,s)
+        self.sendcmd(cmd, True)
+
+    def async_goto(self,x,y,z, speed):
+        self.moving = True
+        t = threading.Thread( target=self.goto , args=(x,y,z,speed) )
+        t.start()
 
 def pump(self, state):
     self.pumping = state
-    cmd = protocol.SET_PUMP.format(int(state))
-    self.sendcmd(cmd,True)
-    
-def mode(self, modeid):
-    # 0= Normal
-    # 1= Laser
-    # 2= 3D Printer
-    # 3= Universal holder
-    cmd = protocol.SET_MODE.format(modeid)
-    self.sendcmd(cmd,True)
+        cmd = protocol.SET_PUMP.format(int(state))
+        self.sendcmd(cmd,True)
 
-    @staticmethod
+    def mode(self, modeid):
+        # 0= Normal
+        # 1= Laser
+        # 2= 3D Printer
+        # 3= Universal holder
+        cmd = protocol.SET_MODE.format(modeid)
+        self.sendcmd(cmd,True)
+
+@staticmethod
     def PointsInCircum(r,n):
         return [(math.cos(2*pi/n*x)*r,math.sin(2*pi/n*x)*r) for x in xrange(0,n+1)]
     
@@ -132,8 +130,8 @@ def mode(self, modeid):
             self.goto(offsetx+x,offsety+y,DrawingHeight,Speed)
 
 self.goto(offsetx+bx,offsety+by,DrawingHeight,Speed)
-time.sleep(0.5)
-self.goto(offsetx+bx,offsety+by,StartFinishedHeight,Speed)
+    time.sleep(0.5)
+        self.goto(offsetx+bx,offsety+by,StartFinishedHeight,Speed)
 
 
 
