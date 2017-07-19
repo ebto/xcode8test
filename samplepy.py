@@ -1,4 +1,5 @@
 print "Hello, World!"
+print "Hello, hello, from Xcode"
 
 # uArm Swift Pro - Python Library
 # Created by: Richard Garsthagen - the.anykey@gmail.com
